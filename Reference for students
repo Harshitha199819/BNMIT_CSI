@@ -1,0 +1,74 @@
+1. https://console.firebase.google.com/
+2. create new project
+3. Provide project name- create
+4. add firebase to web app
+5. copy the code that pops up
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "***",
+    authDomain: "***",,
+    projectId: "***",,
+    storageBucket: "***",,
+    messagingSenderId: "***",,
+    appId: "***",,
+    databaseURL: "***",
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
+
+
+IMPORTANT: most used methods:
+to write- .set(), .push()
+to update- .update()
+to read- .on(), .once()
+on() method to retrieve data. This method is taking the event type as “value” and then retrieves the snapshot of the data. When we add val() method to the snapshot, we will get the JavaScript representation of the data. It triggers continuously.
+once() method to simplify this scenario: it triggers once and then does not trigger again.
+delete- firebase.database().ref('data/'+id).update({name:"new_name"});
+
+6. write
+
+var User = firebase.database().ref("User/");
+
+User.set ({
+    abcd1: {
+      name: "Katherine",
+      age: 30
+   },
+  
+   abcd2: {
+      name: "John",
+      age: 30
+   },
+});
+
+
+7. update
+var johnRef = firebase.database().ref("User/abcd2");
+
+johnRef.update ({
+   "age": 10
+});
+
+
+8. Read data:
+We can use the on() method to retrieve data. This method is taking the event type as "value" and then retrieves the snapshot of the data. When we add val() method to the snapshot, we will get the JavaScript representation of the data.
+
+var ref = firebase.database().ref();
+
+ref.on("value", function(snapshot) {
+   console.log(snapshot.val());
+}, function (error) {
+   console.log("Error: " + error.code);
+});
